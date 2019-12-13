@@ -1,0 +1,127 @@
+using System;
+
+namespace Constructors
+{
+    static class StaticClass  // static class
+    {
+        public static int Operate()  // static method
+        {
+            int count=0;
+            string userId;
+            string password;
+            while (true)
+            {
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Create account");
+                Console.WriteLine("3. Exit");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        if(count==0)
+                        {
+                            Console.WriteLine("Create your account");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter your userid");
+                            userId = Console.ReadLine();
+                            Console.WriteLine("Enter your password");
+                            password = Console.ReadLine();
+                            Constructor log = new Constructor(userId, password);
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter your name");
+                        string name = Console.ReadLine();
+                        Console.WriteLine("Enter your User name");
+                        string userName = Console.ReadLine();
+                        Console.WriteLine("Enter your password");
+                        string code = Console.ReadLine();
+                        Constructor creation = new Constructor(name, userName, code);
+                        Constructor copyConstructor = new Constructor(creation);
+                        Console.WriteLine("Enter your userid");
+                        userId = Console.ReadLine();
+                        Console.WriteLine("Enter your password");
+                        password = Console.ReadLine();
+                        Constructor login = new Constructor(userId, password);
+                        break;
+                    case 3:
+                        Constructor constructor = new Constructor(0);
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        break;
+                }
+                count++;
+            }
+        }
+    }
+    class MainClass
+    {
+        static void Main(string[] args)
+        {
+            Constructor welcome = new Constructor();
+            StaticClass.Operate();  // static method call
+            Console.ReadLine();
+        }
+    }
+
+    class Constructor
+    {
+        public static int count;  // static field
+        public static string Id;  // static field
+        public static string passcode;  // static field
+        public string copiedId;
+        public string secretCode;
+        static Constructor()  // static default constructor
+        {
+            count++;
+            Console.WriteLine("Welcome to my application");
+        }
+
+        public Constructor()  // default constructor
+        {
+            Console.WriteLine("Login or Signin");
+        }
+        public Constructor(int value)  // parameterized constructor
+        {
+            Console.WriteLine("Thank You");
+            Constructor pass = new Constructor(count, Id);
+        }
+
+        public Constructor(Constructor copy)  // declaring copy constructor
+        {
+            copiedId = copy.copiedId;
+            secretCode = copy.secretCode;
+        }
+
+        public Constructor(string userId, string password)  // parameterized constructor
+        {
+            if (userId==Id && password==passcode)  // checking the id and password
+            {
+                Console.WriteLine("You are logged in");
+            }
+            else if (userId.Equals(Id) && password != passcode)
+            {
+                Console.WriteLine("Incorrect Password");
+            }
+            else
+            {
+                Console.WriteLine("You don't have an account");
+            }
+        }
+
+        public Constructor(string name, string userName, string code)  // parameterized constructor
+        {
+            Id = userName;
+            passcode = code;
+            Console.WriteLine(name+" your account is created");
+        }
+
+        private Constructor(int count, string Id)  // private constructor with parameters
+        {
+            Console.WriteLine(Id + ", have a good day");
+        }
+    }
+}
